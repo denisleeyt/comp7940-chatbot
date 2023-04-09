@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: chatbot
+  template:
+    metadata:
+      labels:
+        app: chatbot
+    spec:
+      containers:
+        - name: chatbot-container
+          image: comp7940parkinglot
+          ports:
+            - containerPort: 80
+          env:
+            - name: TELEGRAM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: chatbot-secrets
+                  key: telegram-api-key
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: chatbot-secrets
+                  key: database-url
