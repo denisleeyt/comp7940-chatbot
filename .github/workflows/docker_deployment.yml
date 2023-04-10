@@ -36,4 +36,4 @@ jobs:
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
           sudo docker stop chatbot7940 || true
           sudo docker rm chatbot7940 || true
-          sudo docker run -d --name chatbot7940 -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
+          sudo docker run -e ACCESS_TOKEN_BASE64="$ACCESS_TOKEN_BASE64" -e CONNECTION_STRING_BASE64="$CONNECTION_STRING_BASE64" -e DB_BASE64="$DB_BASE64"  -e COLLECTION_BASE64="$COLLECTION_BASE64" -d --name chatbot7940 -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest

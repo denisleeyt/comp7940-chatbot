@@ -6,16 +6,16 @@ from telegram.ext import CallbackQueryHandler
 import json
 import re
 # The messageHandler is used for all message updates
-import configparser
 import logging
 import tabulate
+import os
+import base64
 
-config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
-CONNECTION_STRING = config['MONGODB']['CONNECTION_STRING']
-DB = config['MONGODB']['DB']
-COLLECTION = config['MONGODB']['COLLECTION']
-ACCESS_TOKEN = config['TELEGRAM']['ACCESS_TOKEN']
+
+ACCESS_TOKEN = base64.b64decode(os.environ["ACCESS_TOKEN_BASE64"]).decode()
+CONNECTION_STRING = base64.b64decode(os.environ["CONNECTION_STRING_BASE64"]).decode()
+DB = base64.b64decode(os.environ["DB_BASE64"]).decode()
+COLLECTION = base64.b64decode(os.environ["COLLECTION_BASE64"]).decode()
 
 global cluster
 cluster = MongoClient(CONNECTION_STRING)
@@ -24,7 +24,7 @@ db = cluster[DB]
 global collection
 collection = db[COLLECTION]
 LOCATION, SELECT_CAR_PARK, SELECT_INFO = range(3)
-print("hihi")
+
 def start(update, context):
     """Handler function for the /start command"""
     chat_id = update.effective_chat.id
@@ -34,7 +34,6 @@ def start(update, context):
 # Save as a parameter while user made the input
 def input_location(update, context):
     location = update.message.text
-    print("hihi")
     print(location)
     global collection
     # result = list(collection.find({'carpark_address': re.compile(fr"{location}")}))
