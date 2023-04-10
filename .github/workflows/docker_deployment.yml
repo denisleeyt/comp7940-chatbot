@@ -1,0 +1,39 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main # or the branch you want to trigger the action
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
+          docker stop your-container-name || true
+          docker rm your-container-name || true
+          docker run -d --name your-container-name -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
