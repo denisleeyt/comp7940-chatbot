@@ -33,7 +33,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         script: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
-          docker stop your-container-name || true
-          docker rm your-container-name || true
-          docker run -d --name your-container-name -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
+          sudo docker stop your-container-name || true
+          sudo docker rm your-container-name || true
+          sudo docker run -d --name your-container-name -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/comp7940parkinglot:latest
