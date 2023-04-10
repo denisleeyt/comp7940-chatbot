@@ -11,10 +11,10 @@ import tabulate
 import os
 import base64
 
-ACCESS_TOKEN = base64.b64decode(os.getenv("ACCESS_TOKEN_BASE64")).decode()
-CONNECTION_STRING = base64.b64decode(os.getenv("CONNECTION_STRING_BASE64")).decode()
-DB = base64.b64decode(os.getenv("DB_BASE64")).decode()
-COLLECTION = base64.b64decode(os.getenv("COLLECTION_BASE64")).decode()
+ACCESS_TOKEN = base64.b64decode(os.getenv("ACCESS_TOKEN_BASE64")).decode('utf-8')
+CONNECTION_STRING = base64.b64decode(os.getenv("CONNECTION_STRING_BASE64")).decode('utf-8')
+DB = base64.b64decode(os.getenv("DB_BASE64")).decode('utf-8')
+COLLECTION = base64.b64decode(os.getenv("COLLECTION_BASE64")).decode('utf-8')
 
 print(ACCESS_TOKEN)
 print(CONNECTION_STRING)
