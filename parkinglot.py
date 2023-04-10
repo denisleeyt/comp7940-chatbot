@@ -11,11 +11,10 @@ import tabulate
 import os
 import base64
 
-
-ACCESS_TOKEN = base64.b64decode(os.environ["ACCESS_TOKEN_BASE64"]).decode()
-CONNECTION_STRING = base64.b64decode(os.environ["CONNECTION_STRING_BASE64"]).decode()
-DB = base64.b64decode(os.environ["DB_BASE64"]).decode()
-COLLECTION = base64.b64decode(os.environ["COLLECTION_BASE64"]).decode()
+ACCESS_TOKEN = base64.b64decode(os.getenv("ACCESS_TOKEN_BASE64")).decode()
+CONNECTION_STRING = base64.b64decode(os.getenv("CONNECTION_STRING_BASE64")).decode()
+DB = base64.b64decode(os.getenv("DB_BASE64")).decode()
+COLLECTION = base64.b64decode(os.getenv("COLLECTION_BASE64")).decode()
 
 global cluster
 cluster = MongoClient(CONNECTION_STRING)
