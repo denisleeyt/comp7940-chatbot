@@ -16,6 +16,11 @@ CONNECTION_STRING = base64.b64decode(os.getenv("CONNECTION_STRING_BASE64")).deco
 DB = base64.b64decode(os.getenv("DB_BASE64")).decode()
 COLLECTION = base64.b64decode(os.getenv("COLLECTION_BASE64")).decode()
 
+print(ACCESS_TOKEN)
+print(CONNECTION_STRING)
+print(DB)
+print(COLLECTION)
+
 global cluster
 cluster = MongoClient(CONNECTION_STRING)
 global db
