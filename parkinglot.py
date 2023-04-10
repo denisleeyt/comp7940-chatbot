@@ -11,12 +11,7 @@ import tabulate
 import os
 import base64
 
-print(base64.b64encode("6189941413:AAEdkLz1OFo7bQxxsNGhTjIvBXEBG5i8g0w".encode('utf-8')))
-print(base64.b64encode("mongodb+srv://user_1:jz2BnwrOHwbKvn1H@parkingdata.p86fuwk.mongodb.net/?retryWrites=true&w=majority".encode('utf-8')))
-print(base64.b64encode("hkparking".encode('utf-8')))
-print(base64.b64encode("data".encode('utf-8')))
-
-ACCESS_TOKEN = base64.b64decode(os.getenv("ACCESS_TOKEN_BASE64")).decode('utf-8')
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 CONNECTION_STRING = base64.b64decode(os.getenv("CONNECTION_STRING_BASE64")).decode('utf-8')
 DB = base64.b64decode(os.getenv("DB_BASE64")).decode('utf-8')
 COLLECTION = base64.b64decode(os.getenv("COLLECTION_BASE64")).decode('utf-8')
